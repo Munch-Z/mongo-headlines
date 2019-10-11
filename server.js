@@ -13,7 +13,9 @@ mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../views')));
+
+
+//Routes
 app.use('/', apiRoutes);
 
 
