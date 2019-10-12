@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const Articles = require('../models/Articles');
+const { Articles } = require('../models');
 const axios = require('axios');
 
 router.get('/api/frontpage', (req, res) => {
