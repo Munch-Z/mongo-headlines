@@ -18,11 +18,31 @@ router.get('/api/frontpage', (req, res) => {
             })
         }
 
-        Articles.insertMany(docs)
-        .then((docs) => {
-            res.json(docs);
+        Articles.find({})
+        .then(data => {
+            
+            //Check if unique
+            for (let i=0; i < data.length; i++) {
+                const oldTitle = data[i].title;
+
+                for (let j=0; j < docs.length; j++) {
+                    const newTitle = docs[j].title;
+
+                    if(newTitle === oldTitle) {
+                        docs.splice(j, 1);
+                    }
+                }
+            }
+            console.log('\n\n\n\n-------------Docs:-------------\n\n\n\n ', docs)
+            Articles.insertMany(docs)
+            .then((articles) => {
+                const newArr = data.concat(articles)
+                res.json(newArr);
+            })
         })
-    })
+        })
+
+
 })
 
 module.exports = router;
