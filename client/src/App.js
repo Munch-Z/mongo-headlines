@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import ArticleWrapper from './Components/ArticleWrapper';
+import CommentPage from './Components/CommentPage'
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
         <ArticleWrapper />
         </Route>
         <Route path='/:articleid/comments'>
-          
+          <CommentPage />
         </Route>
       </Switch>
     </BrowserRouter>

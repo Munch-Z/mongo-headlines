@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Articles } = require('../models');
+const { Articles, Comments } = require('../models');
 const axios = require('axios');
 
 router.get('/api/frontpage', (req, res) => {
@@ -33,7 +33,7 @@ router.get('/api/frontpage', (req, res) => {
                     }
                 }
             }
-            console.log('\n\n\n\n-------------Docs:-------------\n\n\n\n ', docs)
+
             Articles.insertMany(docs)
             .then((articles) => {
                 const newArr = data.concat(articles)
@@ -41,8 +41,44 @@ router.get('/api/frontpage', (req, res) => {
             })
         })
         })
-
-
 })
+
+router.route('/api/comments/:articleid')
+.get((req, res) => {
+    const {articleid} = req.params;
+
+    Articles.findById(articleid)
+    .populate('comments')
+    .then((data) => {
+        console.log(data);
+
+        res.json(data);
+    })
+})
+.post((req, res) => {
+    const {articleid} = req.params;
+    let commentHolder;
+
+    Comments.create(req.body)
+    .then((dbComment) => {
+        commentHolder = dbComment;
+        return Articles.findByIdAndUpdate(articleid, { $push : { comments: dbComment._id} }, {new: true});
+    })
+    .then(dbArticle => {
+        
+        res.json(commentHolder);
+    })
+})
+.delete((req, res) => {
+    const {articleid} = req.params;
+    const id = req.body;
+    Comment.deleteOne(id)
+    .then((data) => {
+        console.log(data);
+        res.sendStatus(200);
+    })
+})
+
+
 
 module.exports = router;

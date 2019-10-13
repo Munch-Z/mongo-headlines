@@ -11,7 +11,7 @@ const Article = ({ article }) => {
         <p>{summary}</p>
         <a href={URL}>Full Article Here!</a>
         <Link to={`${_id}/comments`}>
-            {comments.length} Comments!
+            {comments.length} Comments
         </Link>
         </>
     )
