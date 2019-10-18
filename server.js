@@ -4,7 +4,7 @@ const path = require("path");
 const apiRoutes = require("./routes/apiRoutes");
 
 const app = express();
-const PORT = 5000 || process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsdb";
 
