@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { Articles, Comments } = require("../models");
 const axios = require("axios");
 
-router.get("/api/frontpage", (req, res) => {
+router.get("/frontpage", (req, res) => {
   axios
     .get(
       "https://api.nytimes.com/svc/topstories/v2/technology.json?api-key=XcaNGZKMROZNcpgP9ZpPlCBw1FvmDnHt"
@@ -44,7 +44,7 @@ router.get("/api/frontpage", (req, res) => {
 });
 
 router
-  .route("/api/comments/:articleid")
+  .route("/comments/:articleid")
   .get((req, res) => {
     const { articleid } = req.params;
 
