@@ -36,6 +36,7 @@ router.get("/api/frontpage", (req, res) => {
 
         Articles.insertMany(docs).then(articles => {
           const newArr = data.concat(articles);
+          console.log("Articles Arr", newArr);
           res.json(newArr);
         });
       });
